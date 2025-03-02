@@ -53,7 +53,7 @@ export const upsertUser = async ({	newUserId,
 
 	if (newUserId && newUserId > 0){
 
-		const { error } = await supabase.from("personne").update({
+		const { error } = await (await supabase).from("personne").update({
 								persNom: newNom,
 								persPrenom: newPrenom,
 								persEmail: newEmail,
@@ -87,7 +87,7 @@ export const getUserById = async (pId: number) => {
 	//console.log("GetUserById entrée pId =", pId)
 	const supabase = createClient()
 	//const { data: user, error } = await supabase.rpc('sp_personne_id', {id: pId});
-	const { data: vw_personne, error } = await supabase.from('vw_personne').select().eq("persId", pId)
+	const { data: vw_personne, error } = await (await supabase).from('vw_personne').select().eq("persId", pId)
 	
 	if (error) {
 		console.log("GetUserById Error", error)
@@ -102,7 +102,7 @@ export const getUserByEmail = async (pEmail: string) => {
 	//console.log("getUserByEmail entrée Mail =", pEmail)
 	const supabase = createClient();
 	//const { data: user, error } = await supabase.rpc('sp_personne_id', {id: pId});
-	const { data: vw_personne, error } = await supabase.from("vw_personne").select("*").eq("persEmail", pEmail);
+	const { data: vw_personne, error } = await (await supabase).from("vw_personne").select("*").eq("persEmail", pEmail);
 	
 	if (error) {
 		console.log("getUserByEmail Error", error);

@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: never }) {
 	
 	const supabase = createClient();
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const { data: { user }, error, } = await supabase.auth.getUser();
+	const { data: { user }, error, } = await (await supabase).auth.getUser();
 
 	//console.log("RootLayout Passage dans layout user = ", user?.email)
 
