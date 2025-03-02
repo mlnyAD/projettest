@@ -27,7 +27,7 @@ export const upsertUser = async ({	newUserId,
 
 	if (newUserId == 0) {
 
-		const { error } = await supabase.from("personne").insert({
+		const { error } = await (await supabase).from("personne").insert({
 										persNom: newNom,
 										persPrenom: newPrenom,
 										persEmail: newEmail,
@@ -117,7 +117,7 @@ export const getUsersAll = async () => {
 	
 	const supabase = createClient();
 	const role = "admin";
-	const { data: vw_personne, error } = await supabase.from('vw_personne').select('*');
+	const { data: vw_personne, error } = await (await supabase).from('vw_personne').select('*');
 	
 	if (error) {
 		console.error("Error select users", error);
@@ -132,7 +132,7 @@ export const deleteUser = async (persId: number) => {
 
 	console.log("Entrée deleteUser", persId);
 	const supabase = createClient();
-	const { error } = await supabase.from('personne').delete().match({ persId });
+	const { error } = await (await supabase).from('personne').delete().match({ persId });
 	if (error) {
 		console.error("Error deleting User", error)
 		return { error }

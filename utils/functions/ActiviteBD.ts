@@ -15,7 +15,7 @@
 	 console.log("Insert Activite", actType, actSType, actMessage, actUser)
  
 	 const supabase = createClient()
-	 const { error } = await supabase.from("activite").insert({
+	 const { error } = await (await supabase).from("activite").insert({
 														 activType: actType,
 														 activSType: actSType,
 														 activMessage: actMessage,
@@ -43,7 +43,7 @@
 	 const supabase = createClient()
 	 const role = "admin"
 	 //const { data: configList, error } = await supabase.from("config").select();
-	 const { data: activiteList, error } = await supabase.rpc("sp_activite_all")
+	 const { data: activiteList, error } = await (await supabase).rpc("sp_activite_all")
 	 if (error) {
 		 console.error("Error geActivitesAll")
 		 return { error }
@@ -56,7 +56,7 @@
  export const deleteActivite = async (activId: number) => {
 	 console.log("Entrée deleteActivite", activId)
 	 const supabase = createClient()
-	 const { error } = await supabase.from("activite").delete().match({ activId })
+	 const { error } = await (await supabase).from("activite").delete().match({ activId })
 	 if (error) {
 		 return {
 			 message: error.message,
